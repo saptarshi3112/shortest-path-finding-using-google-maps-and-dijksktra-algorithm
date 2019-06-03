@@ -1,0 +1,40 @@
+Starting coordinates: {{ lat }}
+{{ lng }}
+
+<h1>{{ title }}</h1>
+
+<agm-map 
+  [zoom]=14 [latitude]=lat [longitude]=lng
+  (mapClick)="mapClicked($event)"
+>
+  <div *ngIf="markers">
+    <agm-marker *ngFor="let m of markers"
+      [latitude]="m.lat"
+      [longitude]="m.lng" 
+      (markerClick)="clickedMarker(m.label)"
+      [label]="m.label"
+    >
+    </agm-marker>
+  </div>
+
+  <div *ngIf="lines">
+    <agm-polyline *ngFor="let m of lines">
+      <agm-polyline-point [latitude]="m.src.lat" [longitude]="m.src.lng">
+      </agm-polyline-point>
+      <agm-polyline-point [latitude]="m.dest.lat" [longitude]="m.dest.lng">
+      </agm-polyline-point>
+    </agm-polyline>
+  </div>
+
+</agm-map>
+
+<button (click)="clearAll()"> CLEAR ALL </button>
+<button (click)="clearConnections()"> Clear Connections </button>
+<button (click)="computeShortestPath()">Compute Shortest Path</button>
+
+
+<div *ngIf="shortest">
+  src: {{ src }}
+  dest: {{ dest }}
+  dist: {{ shortest }}
+</div>
