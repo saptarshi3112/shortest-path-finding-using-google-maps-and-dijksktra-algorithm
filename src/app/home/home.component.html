@@ -1,11 +1,15 @@
-Starting coordinates: {{ lat }}
-{{ lng }}
-
-<h1>{{ title }}</h1>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>
+      {{ title }}
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <agm-map 
   [zoom]=14 [latitude]=lat [longitude]=lng
   (mapClick)="mapClicked($event)"
+  [disableDefaultUI]="true"
 >
   <div *ngIf="markers">
     <agm-marker *ngFor="let m of markers"
@@ -28,13 +32,32 @@ Starting coordinates: {{ lat }}
 
 </agm-map>
 
-<button (click)="clearAll()"> CLEAR ALL </button>
-<button (click)="clearConnections()"> Clear Connections </button>
-<button (click)="computeShortestPath()">Compute Shortest Path</button>
+<br>
 
+<button mat-raised-button color="primary" (click)="clearAll()"> CLEAR ALL </button>
+&nbsp;
+<button mat-raised-button color="primary" (click)="clearConnections()"> Clear Connections </button>
+&nbsp;
+<button mat-raised-button color="primary" (click)="computeShortestPath()">Compute Shortest Path</button>
+
+<br>
 
 <div *ngIf="shortest">
-  src: {{ src }}
-  dest: {{ dest }}
-  dist: {{ shortest }}
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar></div>
+      <mat-card-title>Shortest Path</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <strong>source: </strong> {{ src }}
+      </p>
+      <p>
+        <strong>destination:</strong> {{ dest }}
+      </p>
+      <p>
+        <strong>distance:</strong> {{ shortest }} km
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -1,7 +1,7 @@
 const Radius = 6371;
 
 let degreeToRadian = (radian) => {
-  return (radian*(Math.PI/180));
+  return ( radian * ( Math.PI/180 ) );
 };
 
 let computeHaversine = (lat1, lat2, lng1, lng2) => {

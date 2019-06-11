@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MouseEvent } from '@agm/core';
 import { MapService } from '../services/map.service';
 
-
 class marker {
 	lat: number;
 	lng: number;
@@ -33,6 +32,7 @@ export class HomeComponent implements OnInit {
     this.count = 0;
   }
 
+  title = "Shortest Path Finding"
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -40,13 +40,13 @@ export class HomeComponent implements OnInit {
       this.lng = pos.coords.longitude;
 
       this.markers.push({
-        lat: this.lat, 
+        lat: this.lat,
         lng: this.lng,
         draggable: false,
         label: this.count.toString()
       });
 
-      
+
       this.connections.set(this.count, []);
       this.count += 1;
 
@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
           source = this.markers[i];
         }
       }
-  
+
       for(let i = 0; i < this.markers.length; i++) {
         if(this.markers[i].label == x) {
           dest = this.markers[i];
@@ -112,6 +112,7 @@ export class HomeComponent implements OnInit {
     this.markers = [];
     this.lines = [];
     this.count = 0;
+    this.shortest = null;
   }
 
   clearConnections() {
@@ -149,7 +150,6 @@ export class HomeComponent implements OnInit {
       this.map.shortestPath(
         graph, this.markers, Number.parseInt(arr[0]), Number.parseInt(arr[1])
       ).subscribe( (res:any) => {
-
         this.src = res.src;
         this.dest = res.dest;
         this.shortest = res.shortestDistance;
@@ -158,30 +158,14 @@ export class HomeComponent implements OnInit {
 
         this.calculatePathIndex(res.dest, parents);
 
-        console.log(parents);
-        console.log(this.pathIndex.reverse());
-
-        console.log(this.markers);
-
         this.lines = [];
-
         this.pathIndex.reverse().forEach((pathVal) => {
-          console.log(this.markers[pathVal]);
-          console.log(this.markers[parents[pathVal]]);
-          
           this.lines.push({
             src: this.markers[pathVal],
             dest: this.markers[parents[pathVal]]
           });
-
-          console.log("\n");
         });
-
-
-
-
         this.pathIndex = [];
-
       } );
     }
   }
