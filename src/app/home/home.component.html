@@ -3,6 +3,13 @@
     <span>
       {{ title }}
     </span>
+    &nbsp;
+    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;
+    <button mat-raised-button
+      (click)="reload()">
+      Reload
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -34,11 +41,22 @@
 
 <br>
 
-<button mat-raised-button color="primary" (click)="clearAll()"> CLEAR ALL </button>
+<button mat-raised-button color="primary" 
+  (click)="clearAll()"
+> 
+  CLEAR ALL 
+</button>
 &nbsp;
-<button mat-raised-button color="primary" (click)="clearConnections()"> Clear Connections </button>
+<button mat-raised-button color="primary" 
+  (click)="clearConnections()"> 
+  Clear Connections 
+</button>
 &nbsp;
-<button mat-raised-button color="primary" (click)="computeShortestPath()">Compute Shortest Path</button>
+<button mat-raised-button color="primary" 
+  (click)="computeShortestPath()">
+  Compute Shortest Path
+</button>
+
 
 <br>
 

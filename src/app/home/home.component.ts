@@ -53,6 +53,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  reload() {
+    window.location.href = '/';
+  }
 
   mapClicked(clicked: MouseEvent) {
     this.markers.push({
@@ -159,6 +162,7 @@ export class HomeComponent implements OnInit {
         this.calculatePathIndex(res.dest, parents);
 
         this.lines = [];
+        console.log(this.pathIndex);
         this.pathIndex.reverse().forEach((pathVal) => {
           this.lines.push({
             src: this.markers[pathVal],
